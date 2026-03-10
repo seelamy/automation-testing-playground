@@ -1,0 +1,107 @@
+{
+  // MCP Servers for Enterprise Testing Sandbox
+  // Replace <placeholders> with your actual keys before starting servers
+  "servers": {
+    // Filesystem access to the project workspace
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "C:/Users/yellareddy.seelam/Downloads/Automation Testing Playground"
+      ]
+    },
+    // GitHub repo management - issues, PRs, code search
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "<your-github-pat>"
+      }
+    },
+    // Neon PostgreSQL production database
+    "postgres": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-postgres",
+        "<your-neon-database-url>"
+      ]
+    },
+    // Local SQLite dev database
+    "sqlite": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-sqlite",
+        "C:/Users/yellareddy.seelam/Downloads/Automation Testing Playground/packages/database/prisma/dev.db"
+      ]
+    },
+    // Web search for docs and troubleshooting
+    "brave-search": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-brave-search"],
+      "env": {
+        "BRAVE_API_KEY": "<your-brave-api-key>"
+      }
+    },
+    // Persistent knowledge graph for project context
+    "memory": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-memory"]
+    },
+    // Step-by-step reasoning for complex tasks
+    "sequential-thinking": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"]
+    },
+    // Browser automation and screenshots
+    "puppeteer": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-puppeteer"]
+    },
+    // E2E testing with Playwright
+    "playwright": {
+      "command": "npx",
+      "args": ["-y", "@executeautomation/playwright-mcp-server"]
+    },
+    // Fetch URLs and test API routes
+    "fetch": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-fetch"]
+    },
+    // Git operations - log, diff, commit, branch
+    "git": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-git",
+        "--repository",
+        "C:/Users/yellareddy.seelam/Downloads/Automation Testing Playground"
+      ]
+    },
+    // Prisma schema, migrations, introspection
+    "prisma": {
+      "command": "npx",
+      "args": ["-y", "prisma-mcp-server"]
+    },
+    // Vercel deployments and environment management
+    "vercel": {
+      "command": "npx",
+      "args": ["-y", "@vercel/mcp"],
+      "env": {
+        "VERCEL_API_TOKEN": "<your-vercel-token>"
+      }
+    },
+    // Up-to-date docs for Next.js, React, Prisma, Tailwind
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp"]
+    },
+    // UI component generation
+    "magic-mcp": {
+      "command": "npx",
+      "args": ["-y", "@anthropic/magic-mcp"]
+    }
+  }
+}
