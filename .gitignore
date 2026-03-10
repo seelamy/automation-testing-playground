@@ -8,3 +8,4 @@ db-data/
 *.db-journal
 _debug_start.js
 verify.js
+.vscode/mcp.json
