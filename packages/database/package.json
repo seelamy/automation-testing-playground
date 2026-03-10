@@ -1,0 +1,17 @@
+{
+  "name": "@sandbox/database",
+  "version": "0.1.0",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "prisma:init": "prisma generate",
+    "migrate": "prisma migrate dev --name init --preview-feature",
+    "seed": "ts-node --esm prisma/seed.ts"
+  },
+  "devDependencies": {
+    "@prisma/client": "^5.14.0",
+    "prisma": "^5.14.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  }
+}

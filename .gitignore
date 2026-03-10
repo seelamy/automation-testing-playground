@@ -1,0 +1,10 @@
+node_modules/
+.env
+.env.local
+.next/
+dist/
+db-data/
+*.db
+*.db-journal
+_debug_start.js
+verify.js
