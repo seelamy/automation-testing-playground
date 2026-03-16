@@ -7,7 +7,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const { email, password } = req.body || {};
   if (!email || !password) return res.status(400).json({ error: 'Email and password are required' });
   try {
-    const user = await prisma.user.findUnique({ where: { email } });
+    const user = await prisma.user.findUnique({ where: { email }, select: { id: true, email: true, name: true, role: true, createdAt: true, password: true } });
     if (!user) return res.status(404).json({ error: 'User not found' });
     if (!user.password) return res.status(401).json({ error: 'No password set for this user' });
     const valid = await bcrypt.compare(password, user.password);
