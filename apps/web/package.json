@@ -6,6 +6,7 @@
     "build": "node swap-schema.js && prisma generate && next build",
     "start": "next start -p 3000",
     "postinstall": "prisma generate",
+    "postdeploy": "prisma migrate deploy",
     "seed:prod": "npx ts-node prisma/seed-prod.ts"
   },
   "dependencies": {
