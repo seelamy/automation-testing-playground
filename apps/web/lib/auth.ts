@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken'
 import type { NextApiRequest } from 'next'
 
-const SECRET = process.env.JWT_SECRET || 'sandbox-dev-secret-key-2026'
+const SECRET = process.env.JWT_SECRET!
 
 export interface TokenPayload {
   userId: number

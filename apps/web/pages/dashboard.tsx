@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import { GetServerSideProps } from 'next'
 import Layout from '@/components/Layout'
 import ProtectedRoute from '@/components/ProtectedRoute'
@@ -18,12 +19,63 @@ interface DashboardProps {
 }
 
 export default function DashboardPage({ stats, recentActivity }: DashboardProps) {
+  // Delete account logic
+  const [deleteLoading, setDeleteLoading] = useState(false);
+  const [deleteError, setDeleteError] = useState('');
+  const [deletePassword, setDeletePassword] = useState('');
+  const handleDeleteAccount = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setDeleteLoading(true);
+    setDeleteError('');
+    try {
+      const user = JSON.parse(localStorage.getItem('user') || '{}');
+      const res = await fetch('/api/auth/delete-user-secure', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: user.email, password: deletePassword }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setDeleteError(data.error || 'Delete failed');
+        setDeleteLoading(false);
+        return;
+      }
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      window.location.href = '/login';
+    } catch {
+      setDeleteError('Network error');
+      setDeleteLoading(false);
+    }
+  };
   return (
     <ProtectedRoute>
       <Layout>
         <div data-testid="dashboard-page">
           <h1 data-testid="dashboard-title" className="text-2xl font-bold mb-6">Dashboard</h1>
-
+          <form onSubmit={handleDeleteAccount} className="mb-6">
+            <div>
+              <label className="block text-sm font-medium mb-1">Current Password</label>
+              <input
+                type="password"
+                value={deletePassword}
+                onChange={(e) => setDeletePassword(e.target.value)}
+                placeholder="Enter your current password"
+                className="input"
+                required
+              />
+            </div>
+            <button
+              className="btn-danger mt-2"
+              disabled={deleteLoading}
+              type="submit"
+            >
+              {deleteLoading ? 'Deleting...' : 'Delete Account'}
+            </button>
+            {deleteError && (
+              <div className="text-red-600 text-sm bg-red-50 p-3 rounded-lg mb-4">{deleteError}</div>
+            )}
+          </form>
           {/* Stats Grid */}
           <div data-testid="stats-grid" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
             <StatsCard testId="stat-users" title="Total Users" value={stats.users} icon="👥" change="+12% this month" />
@@ -31,7 +83,6 @@ export default function DashboardPage({ stats, recentActivity }: DashboardProps)
             <StatsCard testId="stat-orders" title="Orders" value={stats.orders} icon="🛒" change="+8% this week" />
             <StatsCard testId="stat-revenue" title="Revenue" value={formatCents(stats.revenue)} icon="💰" change="+15% growth" />
           </div>
-
           {/* Recent Activity */}
           <div className="card" data-testid="recent-activity">
             <div className="px-6 py-4 border-b">

@@ -6,7 +6,7 @@ A full-stack testing playground with Auth, Dashboard, CRUD operations, and multi
 - **Frontend**: Next.js 14, React 18, TailwindCSS 3
 - **Backend**: Next.js API Routes
 - **Database**: SQLite (local) / PostgreSQL (production via Neon)
-- **Auth**: JWT (mock auth - any password works)
+- **Auth**: JWT (secure, password required, Gmail OTP signup)
 - **ORM**: Prisma 5.14
 
 ## Local Development
@@ -20,13 +20,13 @@ npx next dev -p 3000
 ```
 
 Open http://localhost:3000 and login with:
-- Email: user1@example.com (admin) or user2-user10@example.com
-- Password: anything (mock auth)
+- Signup with your Gmail address and set a password (OTP required).
+- Login with your registered email and password.
 
 ## Free Production Deployment (Vercel + Neon)
 
 1. Create free Neon PostgreSQL at https://neon.tech
 2. Push to GitHub
 3. Import to Vercel at https://vercel.com, set Root Directory to apps/web
-4. Add env vars: DATABASE_URL, DIRECT_URL, JWT_SECRET
+4. Add env vars: DATABASE_URL, DIRECT_URL, JWT_SECRET, GMAIL_USER, GMAIL_PASS
 5. Deploy!

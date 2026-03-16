@@ -8,7 +8,7 @@
       "args": [
         "-y",
         "@modelcontextprotocol/server-filesystem",
-        "C:/Users/yellareddy.seelam/Downloads/Automation Testing Playground"
+        "D:/Automation/automation-testing-playground"
       ]
     },
     // GitHub repo management - issues, PRs, code search

@@ -29,4 +29,8 @@
     "tailwindcss": "^3.4.0",
     "typescript": "^5.4.0"
   }
+  ,
+  "prisma": {
+    "seed": "ts-node ./prisma/seed-prod.ts"
+  }
 }

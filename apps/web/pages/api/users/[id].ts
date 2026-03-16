@@ -5,6 +5,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const id = Number(req.query.id)
   if (isNaN(id)) return res.status(400).json({ error: 'Invalid id' })
 
+  // Require authentication and admin role for all actions
+  const { authorization } = req.headers;
+  if (!authorization || !authorization.startsWith('Bearer ')) {
+    return res.status(401).json({ error: 'Unauthorized' });
+  }
+  const token = authorization.slice(7);
+  const payload = require('@/lib/auth').verifyToken(token);
+  if (!payload) return res.status(401).json({ error: 'Invalid token' });
+  if (payload.role !== 'ADMIN') return res.status(403).json({ error: 'Forbidden' });
+
   try {
     if (req.method === 'PUT') {
       const { name, email, role } = req.body
