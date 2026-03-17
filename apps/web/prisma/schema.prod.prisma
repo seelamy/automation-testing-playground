@@ -2,6 +2,15 @@ generator client {
   provider = "prisma-client-js"
 }
 
+model OTP {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  otp       String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+}
+
+
 datasource db {
   provider  = "postgresql"
   url       = env("DATABASE_URL")
