@@ -101,7 +101,7 @@
   "type": "http",
   "url": "https://mcp.vercel.com",
   "env": {
-    "VERCEL_API_TOKEN": ""
+    "VERCEL_API_TOKEN": "<your-vercel-api-token>"
   }
 },
 
