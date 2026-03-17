@@ -61,6 +61,18 @@ export default function UsersPage({ initialUsers }: { initialUsers: User[] }) {
     const res = await fetch(`/api/users/${id}`, { method: 'DELETE' })
     if (res.ok) setUsers(users.filter((u) => u.id !== id))
   }
+  
+    async function handlePromote(id: number) {
+      const res = await fetch(`/api/users/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ role: 'ADMIN' }),
+      })
+      if (res.ok) {
+        const updated = await res.json()
+        setUsers(users.map((u) => (u.id === updated.id ? { ...updated, createdAt: updated.createdAt } : u)))
+      }
+    }
 
   return (
     <ProtectedRoute>
@@ -108,6 +120,11 @@ export default function UsersPage({ initialUsers }: { initialUsers: User[] }) {
                       <button data-testid={`btn-delete-user-${u.id}`} onClick={() => handleDelete(u.id)} className="btn-danger text-xs">
                         Delete
                       </button>
+                        {u.role !== 'ADMIN' && (
+                          <button data-testid={`btn-promote-user-${u.id}`} onClick={() => handlePromote(u.id)} className="btn-primary text-xs">
+                            Make Admin
+                          </button>
+                        )}
                     </td>
                   </tr>
                 ))}
